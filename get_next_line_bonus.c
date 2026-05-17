@@ -29,12 +29,12 @@ static void	next_line(char **buffer, int len)
 
 static char	*get_text(char **buffer)
 {
-	int		cont;
+	int		count;
 	int		len;
 	char	*line;
 
 	len = 0;
-	cont = 0;
+	count = 0;
 	if (!*buffer || !**buffer)
 		return (NULL);
 	while ((*buffer)[len] && (*buffer)[len] != '\n')
@@ -42,10 +42,10 @@ static char	*get_text(char **buffer)
 	line = (char *)malloc((len + 2) * sizeof(char));
 	if (!line)
 		return (NULL);
-	while (cont < len)
+	while (count < len)
 	{
-		line[cont] = (*buffer)[cont];
-		cont++;
+		line[count] = (*buffer)[count];
+		count++;
 	}
 	if ((*buffer)[len] == '\n')
 		line[len++] = '\n';
