@@ -29,9 +29,9 @@ int main(int argc, char **argv)
     while (str)
     {
         printf("%s", str);
+    	free(str);
         str = get_next_line(fd);
     }
-    free(str);
     close(fd);
     return (0);
 }
