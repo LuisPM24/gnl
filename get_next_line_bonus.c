@@ -16,6 +16,8 @@ static void	next_line(char **buffer, int len)
 {
 	char	*new_buffer;
 
+	if (!(*buffer)[len])
+		return (free(*buffer), *buffer = NULL);
 	new_buffer = ft_strdup(*buffer + len);
 	if (!new_buffer)
 	{
@@ -41,7 +43,7 @@ static char	*get_text(char **buffer)
 		len++;
 	line = (char *)malloc((len + 2) * sizeof(char));
 	if (!line)
-		return (NULL);
+		return (free(*buffer), *buffer = NULL, NULL);
 	while (count < len)
 	{
 		line[count] = (*buffer)[count];
