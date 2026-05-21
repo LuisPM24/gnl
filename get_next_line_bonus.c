@@ -17,7 +17,11 @@ static void	next_line(char **buffer, int len)
 	char	*new_buffer;
 
 	if (!(*buffer)[len])
-		return (free(*buffer), *buffer = NULL);
+	{
+		free(*buffer);
+		*buffer = NULL;
+		return ;
+	}
 	new_buffer = ft_strdup(*buffer + len);
 	if (!new_buffer)
 	{

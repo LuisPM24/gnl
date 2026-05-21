@@ -90,6 +90,7 @@ int	main(int argc, char **argv)
 {
 	char	*str;
 	int		fd[2];
+	int		active[2];
 
 	if (argc < 3)
 		return (1);
@@ -102,41 +103,32 @@ int	main(int argc, char **argv)
 		close(fd[0]);
 		return (1);
 	}
-	str = get_next_line(fd[0]);
-	if (str)
+	active[0] = 1;
+	active[1] = 1;
+	while (active[0] || active[1])
 	{
-		printf("FD 0: %s", str);
-		free(str);
-	}
-	str = get_next_line(fd[1]);
-	if (str)
-	{
-		printf("FD 1: %s", str);
-		free(str);
-	}
-	str = get_next_line(fd[0]);
-	if (str)
-	{
-		printf("FD 0: %s", str);
-		free(str);
-	}
-	str = get_next_line(fd[1]);
-	if (str)
-	{
-		printf("FD 1: %s", str);
-		free(str);
-	}
-    	str = get_next_line(fd[0]);
-	if (str)
-	{
-		printf("FD 0: %s", str);
-		free(str);
-	}
-	str = get_next_line(fd[1]);
-	if (str)
-	{
-		printf("FD 1: %s", str);
-		free(str);
+		if (active[0])
+		{
+			str = get_next_line(fd[0]);
+			if (str)
+			{
+				printf("FD 0: %s", str);
+				free(str);
+			}
+			else
+				active[0] = 0;
+		}
+		if (active[1])
+		{
+			str = get_next_line(fd[1]);
+			if (str)
+			{
+				printf("FD 1: %s", str);
+				free(str);
+			}
+			else
+				active[1] = 0;
+		}
 	}
 	close(fd[0]);
 	close(fd[1]);
